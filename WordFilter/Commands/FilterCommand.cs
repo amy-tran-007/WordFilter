@@ -10,7 +10,6 @@ namespace TextFilter.Commands
         public string GetFilteredText(ITextContainer container)
         {
 
-
             Parallel.ForEach(container.TextContent, (line, _, lineNumber) =>
             {
                 if (!string.IsNullOrWhiteSpace(line))
@@ -18,16 +17,16 @@ namespace TextFilter.Commands
                     var filteredLine = container.TextFilter.ApplyFilter(line);
                     if (!string.IsNullOrWhiteSpace(filteredLine))
                     {
-                        TextContainer[lineNumber] = filteredLine;
+                        TextContainer[lineNumber - 1] = filteredLine;
                     }
                 }
-
             });
+
 
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < TextContainer.Count; i++)
             {
-                sb.Append(TextContainer[i]);
+                sb.AppendLine(TextContainer[i]);
             }
 
             return sb.ToString();

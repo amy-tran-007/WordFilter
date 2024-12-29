@@ -10,9 +10,9 @@ namespace TextFilterTests.TextFilters
         }
 
         [Theory]
-        [InlineData(" this shkll rempin ")]
-        [InlineData(" this shkll rempin  ")]
-        [InlineData("  this shkll rempin  ")]
+        [InlineData(" thks shkll rempin ")]
+        [InlineData(" thks shkll rempjnr  ")]
+        [InlineData("  thps shkll rempin  ")]
         [InlineData("    ")]
         [InlineData("")]
         public void ApplyFilter_MiddleIsConsonants_NotRemoved(string line)
@@ -22,13 +22,12 @@ namespace TextFilterTests.TextFilters
         }
         //testing all vowels
         [Theory]
-        [InlineData(" this shAll shall weut wEUt be remOved ", " this be ")]
-        [InlineData("clEan clean what woat whOAt currently the rather", "what the rather")]
-        [InlineData("clian clIan what wIet whiEt currently the rather", "what the rather")]
-        [InlineData("clion clIOn what woit wOIt currently the rather", "what the rather")]
-        [InlineData("clUan cluun what wUot wuot currently the rather", "what the rather")]
-
-        [InlineData("some other sentence be partially removed ", "some other sentence be ")]
+        [InlineData("this shAll shall weut wEUt be remOved thpse thhpse", "be thpse thhpse")]
+        [InlineData("clEan clean what woat whOAt currently the rather", "the rather")]
+        [InlineData("clian clIan heck pjjk what wIet whiEt currently the rather", "pjjk the rather")]
+        [InlineData("clion clIOn what woit wOIt currently the rather", "the rather")]
+        [InlineData("clUan cluun what wUot wuot currently the rather llng", "the rather llng")]
+        [InlineData("some other sentence be partially removed ", "other be ")]
         public void ApplyFilter_MiddleIsVowelAndConsonant_PartialRemoved(string line, string expected)
         {
             var filteredWord = MiddleVowelFilter.ApplyFilter(line);
@@ -39,7 +38,7 @@ namespace TextFilterTests.TextFilters
         [InlineData("theis shall beg removed")]
         [InlineData("clean whiat currently ratoher")]
         [InlineData("soame otier sentience partially removed")]
-        [InlineData("soame oteer sentience partoally remuved")]
+        [InlineData("soame oteer even sentience partoally remuved")]
         public void ApplyFilter_MiddleIsVowel_Removed(string line)
         {
             var filteredWord = MiddleVowelFilter.ApplyFilter(line);

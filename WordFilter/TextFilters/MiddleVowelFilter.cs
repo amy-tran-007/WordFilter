@@ -41,7 +41,7 @@ namespace TextFilter.TextFilters
 
         private bool ContainsAllVowels(string word)
         {
-            var regex = @"^[aeiou]+$";
+            var regex = @"[aeiou]";
             Match match = Regex.Match(word, regex, RegexOptions.IgnoreCase);
             return match.Success;
         }

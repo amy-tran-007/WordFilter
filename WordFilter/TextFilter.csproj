@@ -12,4 +12,7 @@
       <_Parameter1>TextFilterTests</_Parameter1>
     </AssemblyAttribute>
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.IO.Abstractions" Version="21.2.1" />
+  </ItemGroup>
 </Project>

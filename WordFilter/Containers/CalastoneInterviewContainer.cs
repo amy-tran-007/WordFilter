@@ -1,8 +1,9 @@
-﻿using TextFilter.TextFilters;
+﻿using System.IO.Abstractions;
+using TextFilter.TextFilters;
 
 namespace TextFilter.Containers
 {
-    internal class CalastoneInterviewContainer(string fileLocation) : FileContainer(fileLocation)
+    internal class CalastoneInterviewContainer(string fileLocation, IFileSystem fileSystem) : FileContainer(fileLocation, fileSystem)
     {
 
         protected const int MINIMUM_WORD_LENGTH = 3;
@@ -18,5 +19,9 @@ namespace TextFilter.Containers
             }
         }
 
+        public override bool IsValid()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
