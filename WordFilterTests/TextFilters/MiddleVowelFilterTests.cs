@@ -20,10 +20,14 @@ namespace TextFilterTests.TextFilters
             var filteredWord = MiddleVowelFilter.ApplyFilter(line);
             filteredWord.ShouldBe(line);
         }
-
+        //testing all vowels
         [Theory]
-        [InlineData(" this shall be removed ", " this be ")]
-        [InlineData("clean what currently the rather", "what the rather")]
+        [InlineData(" this shAll shall weut wEUt be remOved ", " this be ")]
+        [InlineData("clEan clean what woat whOAt currently the rather", "what the rather")]
+        [InlineData("clian clIan what wIet whiEt currently the rather", "what the rather")]
+        [InlineData("clion clIOn what woit wOIt currently the rather", "what the rather")]
+        [InlineData("clUan cluun what wUot wuot currently the rather", "what the rather")]
+
         [InlineData("some other sentence be partially removed ", "some other sentence be ")]
         public void ApplyFilter_MiddleIsVowelAndConsonant_PartialRemoved(string line, string expected)
         {

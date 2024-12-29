@@ -15,7 +15,7 @@ namespace TextFilter.TextFilters
                 return String.Empty;
             }
 
-            var words = line.Split(' ');
+            var words = line.Split(" ");
             var sb = new StringBuilder();
             var maxIndex = words.Length;
 

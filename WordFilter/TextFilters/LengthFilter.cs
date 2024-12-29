@@ -1,5 +1,4 @@
 ﻿using System.Text;
-using TextFilter.Helpers;
 
 namespace TextFilter.TextFilters
 {
@@ -13,18 +12,17 @@ namespace TextFilter.TextFilters
             {
                 return String.Empty;
             }
-            var words = line.Split(' ');
-            var maxIndex = words.Length;
+            var words = line.Split(" ");
             var sb = new StringBuilder();
-            for (long i = 0; i < maxIndex; i++)
+            foreach (var word in words)
             {
-                var word = words[i];
+
                 if (word.Length >= minSize)
                 {
-                    sb.Append(LineHelper.LastWordAddWhitespace(i, maxIndex, word));
+                    sb.Append(word + " ");
                 }
             }
-            return sb.ToString().Trim();
+            return base.ApplyFilter(sb.ToString().Trim());
         }
     }
 }
