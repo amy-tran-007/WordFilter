@@ -2,6 +2,6 @@
 {
     internal interface IFileContainerValidationService
     {
-        bool IsValid();
+        Result IsFilePathValid(string? filepath);
     }
 }

@@ -19,9 +19,5 @@ namespace TextFilter.Containers
             }
         }
 
-        public override bool IsValid()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

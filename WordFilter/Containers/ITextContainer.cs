@@ -6,6 +6,5 @@ namespace TextFilter.Containers
     {
         BaseTextFilter TextFilter { get; }
         IEnumerable<string> TextContent { get; }
-        bool IsValid();
     }
 }

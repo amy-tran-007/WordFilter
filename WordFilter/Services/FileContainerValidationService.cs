@@ -1,10 +1,21 @@
-﻿namespace TextFilter.Services
+﻿using System.IO.Abstractions;
+
+namespace TextFilter.Services
 {
-    internal class FileContainerValidationService : IFileContainerValidationService
+    internal class FileContainerValidationService(IFileSystem fileSystem) : IFileContainerValidationService
     {
-        public bool IsValid()
+        //todo specifiy acceptable file types too
+        public Result IsFilePathValid(string? path)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(path))
+            {
+                return Result.Error("Path must be specified");
+            }
+            if (!fileSystem.File.Exists(path))
+            {
+                return Result.Error("File must exist");
+            }
+            return Result.OK();
         }
     }
 }

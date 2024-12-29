@@ -9,7 +9,5 @@ namespace TextFilter.Containers
         public abstract BaseTextFilter TextFilter { get; }
         public IEnumerable<string> TextContent => fileSystem.File.ReadLines(fileLocation);
 
-        public abstract bool IsValid();
-
     }
 }
