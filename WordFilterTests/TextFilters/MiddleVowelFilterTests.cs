@@ -1,6 +1,4 @@
-﻿using Shouldly;
-using TextFilter.TextFilters;
-
+﻿
 namespace TextFilterTests.TextFilters
 {
     public class MiddleVowelFilterTests
@@ -31,6 +29,17 @@ namespace TextFilterTests.TextFilters
         {
             var filteredWord = MiddleVowelFilter.ApplyFilter(line);
             filteredWord.ShouldBe(expected);
+        }
+
+        [Theory]
+        [InlineData("theis shall beg removed")]
+        [InlineData("clean whiat currently ratoher")]
+        [InlineData("soame otier sentience partially removed")]
+        [InlineData("soame oteer sentience partoally remuved")]
+        public void ApplyFilter_MiddleIsVowel_Removed(string line)
+        {
+            var filteredWord = MiddleVowelFilter.ApplyFilter(line);
+            filteredWord.ShouldBe(string.Empty);
         }
 
         [Fact]
