@@ -4,10 +4,20 @@ namespace TextFilter.Containers
 {
     internal class FileContainer(string fileLocation) : ITextContainer
     {
+
+
+
         private string FileLocation { get; init; } = default!;
-        public BaseTextFilter TextFilter => new MiddleVowelFilter()
-                                        .SetNextFilter(new LengthFilter())
-                                        .SetNextFilter(new RemoveTFilter());
+        public BaseTextFilter TextFilter
+        {
+            get
+            {
+                var filter = new MiddleVowelFilter();
+                filter.SetNextFilter(new LengthFilter())
+                .SetNextFilter(new RemoveTFilter());
+                return filter;
+            }
+        }
 
         public IEnumerable<string> TextContent => File.ReadLines(fileLocation);
 
