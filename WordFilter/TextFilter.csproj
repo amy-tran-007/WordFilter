@@ -9,7 +9,7 @@
   </PropertyGroup>
   <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
-      <_Parameter1>WordFilterTests</_Parameter1>
+      <_Parameter1>TextFilterTests</_Parameter1>
     </AssemblyAttribute>
   </ItemGroup>
 </Project>

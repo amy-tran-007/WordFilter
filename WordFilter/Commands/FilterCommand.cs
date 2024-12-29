@@ -6,11 +6,11 @@ namespace TextFilter.Commands
 {
     internal class FilterCommand
     {
-        private ConcurrentDictionary<long, string> OrderedTextContainer = new ConcurrentDictionary<long, string>();
+        private ConcurrentDictionary<long, string> TextContainer = new ConcurrentDictionary<long, string>();
         public string GetFilteredText(ITextContainer container)
         {
 
-            StringBuilder sb = new StringBuilder();
+
             Parallel.ForEach(container.TextContent, (line, _, lineNumber) =>
             {
                 if (!string.IsNullOrWhiteSpace(line))
@@ -18,12 +18,17 @@ namespace TextFilter.Commands
                     var filteredLine = container.TextFilter.ApplyFilter(line);
                     if (!string.IsNullOrWhiteSpace(filteredLine))
                     {
-                        OrderedTextContainer[lineNumber] = filteredLine;
-                        sb.Append(filteredLine);
+                        TextContainer[lineNumber] = filteredLine;
                     }
                 }
 
             });
+
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < TextContainer.Count; i++)
+            {
+                sb.Append(TextContainer[i]);
+            }
 
             return sb.ToString();
         }

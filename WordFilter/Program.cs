@@ -1,5 +1,4 @@
-﻿
-using TextFilter.Commands;
+﻿using TextFilter.Commands;
 using TextFilter.Containers;
 
 Console.WriteLine("Please specificy file destination");
