@@ -7,7 +7,7 @@ internal class RemoveCharacterFilter(char removeChar) : BaseTextFilter
 {
     public override string ApplyFilter(string line)
     {
-        //TODO removestring will need to be escaped for special characters
+        //TODO removeChar will need to be escaped for special characters
         if (line == null)
         {
             return String.Empty;
