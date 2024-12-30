@@ -2,35 +2,34 @@
 using System.Text;
 using TextFilter.Containers;
 
-namespace TextFilter.Commands
+namespace TextFilter.Commands;
+
+internal class FilterCommand
 {
-    internal class FilterCommand
+    private ConcurrentDictionary<long, string> TextContainer = new ConcurrentDictionary<long, string>();
+    public string GetFilteredText(ITextContainer container)
     {
-        private ConcurrentDictionary<long, string> TextContainer = new ConcurrentDictionary<long, string>();
-        public string GetFilteredText(ITextContainer container)
+
+        Parallel.ForEach(container.TextContent, (line, _, lineNumber) =>
         {
-
-            Parallel.ForEach(container.TextContent, (line, _, lineNumber) =>
+            if (!string.IsNullOrWhiteSpace(line))
             {
-                if (!string.IsNullOrWhiteSpace(line))
+                var filteredLine = container.TextFilter.ApplyFilter(line);
+                if (!string.IsNullOrWhiteSpace(filteredLine))
                 {
-                    var filteredLine = container.TextFilter.ApplyFilter(line);
-                    if (!string.IsNullOrWhiteSpace(filteredLine))
-                    {
-                        TextContainer[lineNumber - 1] = filteredLine;
-                    }
+                    TextContainer[lineNumber - 1] = filteredLine;
                 }
-            });
-
-
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < TextContainer.Count; i++)
-            {
-                sb.AppendLine(TextContainer[i]);
             }
+        });
 
-            return sb.ToString();
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < TextContainer.Count; i++)
+        {
+            sb.AppendLine(TextContainer[i]);
         }
+
+        return sb.ToString();
     }
 }
 

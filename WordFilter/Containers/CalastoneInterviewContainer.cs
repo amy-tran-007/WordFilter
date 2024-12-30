@@ -1,23 +1,22 @@
 ﻿using System.IO.Abstractions;
 using TextFilter.TextFilters;
 
-namespace TextFilter.Containers
+namespace TextFilter.Containers;
+
+internal class CalastoneInterviewContainer(string fileLocation, IFileSystem fileSystem) : FileContainer(fileLocation, fileSystem)
 {
-    internal class CalastoneInterviewContainer(string fileLocation, IFileSystem fileSystem) : FileContainer(fileLocation, fileSystem)
+
+    protected const int MINIMUM_WORD_LENGTH = 3;
+    private const char FILTER_BY_CHAR = 't';
+    public override BaseTextFilter TextFilter
     {
-
-        protected const int MINIMUM_WORD_LENGTH = 3;
-        private const char FILTER_BY_CHAR = 't';
-        public override BaseTextFilter TextFilter
+        get
         {
-            get
-            {
-                var filter = new MiddleVowelFilter();
-                filter.SetNextFilter(new LengthFilter(MINIMUM_WORD_LENGTH))
-                .SetNextFilter(new RemoveCharacterFilter(FILTER_BY_CHAR));
-                return filter;
-            }
+            var filter = new MiddleVowelFilter();
+            filter.SetNextFilter(new LengthFilter(MINIMUM_WORD_LENGTH))
+            .SetNextFilter(new RemoveCharacterFilter(FILTER_BY_CHAR));
+            return filter;
         }
-
     }
+
 }

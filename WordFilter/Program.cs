@@ -3,6 +3,11 @@ using TextFilter.Commands;
 using TextFilter.Containers;
 using TextFilter.Services;
 
+//TODO: dependency injection container
+//demo file C:\Projects\WordFilter\test.txt
+//matching alphanumeric chars only
+//multiple whitespaces are removed
+
 Console.WriteLine("Please specificy file destination");
 var fileLocation = Console.ReadLine();
 

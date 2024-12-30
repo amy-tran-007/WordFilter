@@ -1,7 +1,6 @@
-﻿namespace TextFilter.Services
+﻿namespace TextFilter.Services;
+
+internal interface IFileContainerValidationService
 {
-    internal interface IFileContainerValidationService
-    {
-        Result IsFilePathValid(string? filepath);
-    }
+    Result IsFilePathValid(string? filepath);
 }

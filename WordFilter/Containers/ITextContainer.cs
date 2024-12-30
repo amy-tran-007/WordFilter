@@ -1,10 +1,9 @@
 ﻿using TextFilter.TextFilters;
 
-namespace TextFilter.Containers
+namespace TextFilter.Containers;
+
+internal interface ITextContainer
 {
-    internal interface ITextContainer
-    {
-        BaseTextFilter TextFilter { get; }
-        IEnumerable<string> TextContent { get; }
-    }
+    BaseTextFilter TextFilter { get; }
+    IEnumerable<string> TextContent { get; }
 }
