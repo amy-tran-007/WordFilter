@@ -11,7 +11,7 @@ public class LengthFilterTests
 
     public void ApplyFilter_WordsLessThanLength_Removed(string line, int minimumLength)
     {
-        var filteredWord = new LengthFilter(minimumLength).ApplyFilter(line);
+        var filteredWord = new MinLengthFilter(minimumLength).ApplyFilter(line);
         filteredWord.ShouldBe(string.Empty);
     }
 
@@ -21,7 +21,7 @@ public class LengthFilterTests
     [InlineData("other sentence", 5)]
     public void ApplyFilter_WordsGreaterThanLength_Remains(string line, int minimumLength)
     {
-        var filteredWord = new LengthFilter(minimumLength).ApplyFilter(line);
+        var filteredWord = new MinLengthFilter(minimumLength).ApplyFilter(line);
         filteredWord.ShouldBe(line);
     }
 
@@ -32,14 +32,14 @@ public class LengthFilterTests
     [InlineData("  other sentence the mix ", 5, "other sentence")]
     public void ApplyFilter_MixedWordsLength_PartiallyReplaced(string line, int minimumLength, string expected)
     {
-        var filteredWord = new LengthFilter(minimumLength).ApplyFilter(line);
+        var filteredWord = new MinLengthFilter(minimumLength).ApplyFilter(line);
         filteredWord.ShouldBe(expected);
     }
 
     [Fact]
     public void ApplyFilter_Null_Returns_EmptyString()
     {
-        var filteredWord = new LengthFilter(3).ApplyFilter(null);
+        var filteredWord = new MinLengthFilter(3).ApplyFilter(null);
         filteredWord.ShouldBe(string.Empty);
     }
 }

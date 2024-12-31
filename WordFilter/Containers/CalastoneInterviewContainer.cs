@@ -13,7 +13,7 @@ internal class CalastoneInterviewContainer(string fileLocation, IFileSystem file
         get
         {
             var filter = new MiddleVowelFilter();
-            filter.SetNextFilter(new LengthFilter(MINIMUM_WORD_LENGTH))
+            filter.SetNextFilter(new MinLengthFilter(MINIMUM_WORD_LENGTH))
             .SetNextFilter(new RemoveCharacterFilter(FILTER_BY_CHAR));
             return filter;
         }

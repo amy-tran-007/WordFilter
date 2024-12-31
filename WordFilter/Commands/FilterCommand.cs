@@ -9,7 +9,7 @@ internal class FilterCommand
     private ConcurrentDictionary<long, string> TextContainer = new ConcurrentDictionary<long, string>();
     public string GetFilteredText(ITextContainer container)
     {
-
+        //todo can add parallex options
         Parallel.ForEach(container.TextContent, (line, _, lineNumber) =>
         {
             if (!string.IsNullOrWhiteSpace(line))
@@ -21,10 +21,14 @@ internal class FilterCommand
                 }
             }
         });
-
-
+        if (TextContainer.Count == 0)
+        {
+            return string.Empty;
+        }
+        var index = TextContainer.Keys.Min();
+        var maxIndex = TextContainer.Keys.Max();
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < TextContainer.Count; i++)
+        for (long i = index; i <= maxIndex; i++)
         {
             sb.AppendLine(TextContainer[i]);
         }

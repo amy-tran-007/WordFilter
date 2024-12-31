@@ -1,12 +1,13 @@
-﻿using System.Text;
-using System.Text.RegularExpressions;
-using TextFilter.Helpers;
+﻿using TextFilter.Services;
 
 namespace TextFilter.TextFilters;
 
 internal abstract class BaseTextFilter
 {
     protected BaseTextFilter NextFilter = default!;
+
+    //TODO: dependency violation here but for code clarity and over engineering have ignored
+    protected ITextEditService TextEditService = new RegExTextEditService();
 
     public BaseTextFilter SetNextFilter(BaseTextFilter nextFilter)
     {
@@ -18,25 +19,22 @@ internal abstract class BaseTextFilter
 
     public virtual string ApplyFilter(string line)
     {
+        var removeWords = new HashSet<string>();
         if (string.IsNullOrWhiteSpace(line))
         {
             return string.Empty;
         }
-        var regExSb = new StringBuilder();
 
-        Regex nonAlphaNumeric = new Regex("[^\\w*]+");
-        var words = nonAlphaNumeric.Split(line);
+        var words = TextEditService.SplitSentenceIntoWords(line);
         foreach (var word in words)
         {
             if (ShouldWordBeFiltered(word) && string.IsNullOrWhiteSpace(word) == false)
             {
-                regExSb.Append($"|\\b({word})\\b");
+                removeWords.Add(word);
             }
         }
 
-        var regex = regExSb.ToString();
-        var filteredText = string.IsNullOrEmpty(regex) ? line :
-                Regex.Replace(line, regex.Substring(1), "").ReplaceMultipleWhitespace();
+        var filteredText = TextEditService.RemoveWord(line, removeWords);
 
         if (NextFilter != null)
         {

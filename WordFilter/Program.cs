@@ -5,8 +5,7 @@ using TextFilter.Services;
 
 //TODO: dependency injection container
 //demo file C:\Projects\WordFilter\test.txt
-//matching alphanumeric chars only
-//multiple whitespaces are removed
+//Read readme file for assumptions and improvements
 
 Console.WriteLine("Please specificy file destination");
 var fileLocation = Console.ReadLine();

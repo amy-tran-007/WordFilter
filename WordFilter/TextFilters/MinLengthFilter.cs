@@ -1,6 +1,6 @@
 ﻿namespace TextFilter.TextFilters;
 
-internal class LengthFilter(int minSize) : BaseTextFilter
+internal class MinLengthFilter(int minSize) : BaseTextFilter
 {
     protected override bool ShouldWordBeFiltered(string word)
     {

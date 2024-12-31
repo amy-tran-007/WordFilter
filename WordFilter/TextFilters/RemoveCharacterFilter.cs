@@ -1,19 +1,13 @@
-﻿using System.Text.RegularExpressions;
-using TextFilter.Helpers;
-
-namespace TextFilter.TextFilters;
+﻿namespace TextFilter.TextFilters;
 
 internal class RemoveCharacterFilter(char removeChar) : BaseTextFilter
 {
     public override string ApplyFilter(string line)
     {
         //TODO removeChar will need to be escaped for special characters
-        if (line == null)
-        {
-            return String.Empty;
-        }
-        var regex = $@"\w*{removeChar}\w*";
-        var filteredText = Regex.Replace(line, regex, "", RegexOptions.IgnoreCase).ReplaceMultipleWhitespace();
+        //breaking the pattern and searching and replace in one step
+
+        var filteredText = TextEditService.RemoveWordContainingCharacter(line, removeChar);
         if (NextFilter != null)
         {
             return $"{NextFilter.ApplyFilter(filteredText)}";

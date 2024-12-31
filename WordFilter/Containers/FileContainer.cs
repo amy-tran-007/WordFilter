@@ -7,6 +7,6 @@ internal abstract class FileContainer(string fileLocation, IFileSystem fileSyste
 {
 
     public abstract BaseTextFilter TextFilter { get; }
-    public IEnumerable<string> TextContent => fileSystem.File.ReadLines(fileLocation);
+    public virtual IEnumerable<string> TextContent => fileSystem.File.ReadLines(fileLocation);
 
 }
