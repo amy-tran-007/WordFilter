@@ -35,7 +35,7 @@ namespace TextFilter.Services
 
         public string RemoveWordContainingCharacter(string sentence, char findChar)
         {
-            //TODO could extend to make this fine any characters
+            //TODO could extend to make this find any characters
             if (string.IsNullOrWhiteSpace(sentence)) { return string.Empty; };
 
             var regex = $@"\w*{findChar}\w*";

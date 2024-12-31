@@ -4,7 +4,6 @@ namespace TextFilterTests.Services
 {
     public class RegExTextEditServiceTests
     {
-        //todo: add on whitespace checks
         private readonly RegExTextEditService _regExTextEditService;
         public RegExTextEditServiceTests()
         {

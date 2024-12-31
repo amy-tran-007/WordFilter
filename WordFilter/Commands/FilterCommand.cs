@@ -7,20 +7,43 @@ namespace TextFilter.Commands;
 internal class FilterCommand
 {
     private ConcurrentDictionary<long, string> TextContainer = new ConcurrentDictionary<long, string>();
-    public string GetFilteredText(ITextContainer container)
+    public string GetFilteredText(ITextContainer container, CancellationToken cancellationToken)
     {
-        //todo can add parallex options
-        Parallel.ForEach(container.TextContent, (line, _, lineNumber) =>
+        //ToDo: configs should be stored in appsettings.json 
+        var exceptions = new ConcurrentQueue<Exception>();
+        var parallelOptions = new ParallelOptions()
         {
-            if (!string.IsNullOrWhiteSpace(line))
+            MaxDegreeOfParallelism = Environment.ProcessorCount - 2,
+            CancellationToken = cancellationToken
+        };
+
+
+
+        //extremely large files may exceed lineNumber
+        Parallel.ForEach(container.TextContent, parallelOptions, (line, _, lineNumber) =>
+        {
+            try
             {
-                var filteredLine = container.TextFilter.ApplyFilter(line);
-                if (!string.IsNullOrWhiteSpace(filteredLine))
+                if (!string.IsNullOrWhiteSpace(line))
                 {
-                    TextContainer[lineNumber - 1] = filteredLine;
+                    var filteredLine = container.TextFilter.ApplyFilter(line);
+                    if (!string.IsNullOrWhiteSpace(filteredLine))
+                    {
+                        TextContainer[lineNumber - 1] = filteredLine;
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                exceptions.Enqueue(ex);
+            }
         });
+
+        if (!exceptions.IsEmpty)
+        {
+            throw new AggregateException(exceptions);
+        }
+
         if (TextContainer.Count == 0)
         {
             return string.Empty;

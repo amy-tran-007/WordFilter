@@ -19,7 +19,7 @@ public class FilterCommandTests
         A.CallTo(() => fileContainer.TextFilter.ApplyFilter(A<string>.Ignored)).Returns(textReturned);
 
         var command = new FilterCommand();
-        string result = command.GetFilteredText(fileContainer);
+        string result = command.GetFilteredText(fileContainer, CancellationToken.None);
 
         A.CallTo(() => fileContainer.TextFilter).MustHaveHappened();
         A.CallTo(() => fileContainer.TextFilter.ApplyFilter(A<string>.Ignored)).MustHaveHappened();
