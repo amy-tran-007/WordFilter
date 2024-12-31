@@ -1,10 +1,7 @@
-﻿using System.Text;
-
-namespace TextFilter.TextFilters;
+﻿namespace TextFilter.TextFilters;
 
 internal class MiddleVowelFilter : BaseTextFilter
 {
-    protected StringBuilder _middleVowelSb = new StringBuilder();
     //words less than 2 character length is excluded from filter as middle doesn't exist
     private string _searchForChars = "aeiou";
     protected override bool ShouldWordBeFiltered(string word)
