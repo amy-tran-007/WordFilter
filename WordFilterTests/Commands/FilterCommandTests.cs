@@ -2,6 +2,9 @@
 using System.IO.Abstractions;
 using TextFilter.Commands;
 using TextFilter.Containers;
+using TextFilter.Services;
+using TextFilter.Shared;
+using TextFilter.ValueObjects;
 
 namespace TextFilterTests.Commands;
 
@@ -11,8 +14,13 @@ public class FilterCommandTests
     public void GetFilteredText_TextFiltered_Returns_AccurateText()
     {
         var fileSystem = A.Fake<IFileSystem>();
+        var fileLocatorValidator = A.Fake<IFileLocationValidator>();
+        A.CallTo(() => fileLocatorValidator.IsFilePathValid(A<string>.Ignored)).Returns(Result.OK());
+
+        FileLocation.TryParse(fileLocatorValidator, "", out FileLocation? fileLocation);
+
         var fileContainer = A.Fake<FileContainer>(options => options.WithArgumentsForConstructor(
-             new object[] { "", fileSystem }
+             new object[] { fileLocation!, fileSystem }
             ));
         string textReturned = "averylongwordConversation";
         A.CallTo(() => fileContainer.TextContent).Returns(new List<string>() { "hello there averylongword", "dummy Conversation" });

@@ -1,6 +1,6 @@
 ﻿namespace TextFilter.Services;
 
-internal interface IFileContainerValidationService
+internal interface IFileLocationValidator
 {
     Result IsFilePathValid(string? filepath);
 }

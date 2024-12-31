@@ -2,7 +2,7 @@
 
 namespace TextFilter.Services;
 
-internal class FileContainerValidationService(IFileSystem fileSystem) : IFileContainerValidationService
+internal class FileLocationValidator(IFileSystem fileSystem) : IFileLocationValidator
 {
     //todo specifiy acceptable file types too
     public Result IsFilePathValid(string? path)
